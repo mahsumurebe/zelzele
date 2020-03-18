@@ -1,0 +1,36 @@
+{
+  "name": "zelzele",
+  "version": "1.0.0",
+  "description": "Zezele is a service that broadcasts earthquake information over the socket.",
+  "main": "build/index.js",
+  "scripts": {
+    "prebuild": "rm -rf build/*",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahsumurebe/zelzele.git"
+  },
+  "keywords": [
+    "Zelzele"
+  ],
+  "author": "Mahsum UREBE <info@mahsumurebe.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mahsumurebe/zelzele/issues"
+  },
+  "homepage": "https://github.com/mahsumurebe/zelzele#readme",
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^13.9.1",
+    "@types/signale": "^1.4.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "chalk": "^3.0.0",
+    "rxjs": "^6.5.4",
+    "signale": "^1.4.0"
+  }
+}
