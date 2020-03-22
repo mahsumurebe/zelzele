@@ -28,7 +28,7 @@ class TrEduBounKoeri extends EventEmitter implements IProvider {
                 const content = data.data;
                 const regex = /^([0-9]{4}.[0-9]{2}.[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2})\s+([0-9]{1,2}\.[0-9]{0,4})\s+([0-9]{1,2}\.[0-9]{0,4})\s+([0-9]{1,2}\.[0-9]{0,4})\s+([0-9-]{1,2}\.[0-9-]{0,4})\s+([0-9-]{1,2}\.[0-9-]{0,4})\s+([0-9-]{1,2}\.[0-9-]{0,4})\s+([A-Z-()\s]+)\s.*$/gm;
                 for (const i of content.matchAll(regex)) {
-                    const [all, date, lat, long, depth, magnitude_local, magnitude_moment, magnitude_duration, location] = i;
+                    const [, date, lat, long, depth, magnitude_local, magnitude_moment, magnitude_duration, location] = i;
                     out.push({
                         provide: {
                             name: self.providerName,
@@ -43,7 +43,7 @@ class TrEduBounKoeri extends EventEmitter implements IProvider {
                             moment: +magnitude_moment,
                             duration: +magnitude_duration,
                         },
-                        location,
+                        location: location.toString().trim(),
                     });
                 }
                 return out.filter(item => {
@@ -67,7 +67,7 @@ class TrEduBounKoeri extends EventEmitter implements IProvider {
                     }
                     setTimeout(() => self.run(), this.interval);
                 })
-                .catch((e) => {
+                .catch(() => {
                     if (this.stress > 5) {
                         return self.stop();
                     }
