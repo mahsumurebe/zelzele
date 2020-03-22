@@ -1,6 +1,7 @@
 import {fromEvent, merge, Observable} from 'rxjs';
 import {IProvider, IProviderResponse} from './Providers/types';
 import {Signale} from 'signale';
+import WS from './Servers/SocketIO';
 
 const logger = new Signale({
     scope: 'ZELZELE',
@@ -13,19 +14,28 @@ const logger = new Signale({
     },
 });
 
-const newEarthquake = logger.scope('ZELZELE', 'NEW');
-logger.info(`Running providers.`);
+async function init() {
+    logger.info('Starting WebSocket server.');
+    const wsServer = new WS();
+    await wsServer.listen();
 
-let observable: Observable<IProviderResponse>;
-const providers: { [key: string]: IProvider } = require('./Providers');
-const chalk = require('chalk');
+    const newEarthquake = logger.scope('ZELZELE', 'NEW');
+    logger.info(`Running providers.`);
 
-for (const provider of Object.values(providers)) {
-    logger.debug(`Starting ${provider.providerName} provider.`);
-    provider.run().catch(e => provider.stop());
-    observable = merge<IProviderResponse>(fromEvent<IProviderResponse>(provider as any, 'data'));
+    let observable: Observable<IProviderResponse>;
+    const providers: { [key: string]: IProvider } = require('./Providers');
+    const chalk = require('chalk');
+
+    for (const provider of Object.values(providers)) {
+        logger.debug(`Starting ${provider.providerName} provider.`);
+        provider.run().catch(() => provider.stop());
+        observable = merge<IProviderResponse>(fromEvent<IProviderResponse>(provider as any, 'data'));
+    }
+
+    observable.subscribe(value => {
+        newEarthquake.fatal(`${chalk.red('EarthQuake')} ${chalk.blue('Date:')} ${value.date}\t${chalk.blue('Lat:')} ${value.lat}\t${chalk.blue('Long:')} ${value.long}\t${chalk.blue('Depth:')} ${value.depth}\t${chalk.blue('MD:')} ${isNaN(value.magnitude.local) ? '-.-' : value.magnitude.local}\t${chalk.blue('ML:')} ${isNaN(value.magnitude.moment) ? '-.-' : value.magnitude.moment}\t${chalk.blue('MW:')} ${isNaN(value.magnitude.duration) ? '-.-' : value.magnitude.duration}\t${chalk.blue('Location:')} ${value.location}`);
+        wsServer.emit(value);
+    });
 }
 
-observable.subscribe(value => {
-    newEarthquake.fatal(`${chalk.red('EarthQuake')} ${chalk.blue('Date:')} ${value.date.getUTCDate()}  ${chalk.blue('Lat:')} ${value.lat} ${chalk.blue('Lat:')} ${value.long} ${chalk.blue('Lat:')} ${value.depth} ${chalk.blue('MD:')} ${isNaN(value.magnitude.local) ? '-.-' : value.magnitude.local} ${chalk.blue('ML:')} ${isNaN(value.magnitude.moment) ? '-.-' : value.magnitude.moment} ${chalk.blue('MW:')} ${isNaN(value.magnitude.duration) ? '-.-' : value.magnitude.duration} ${chalk.blue('Location:')} ${value.location}`);
-});
+init().catch(e => logger.fatal(e));
