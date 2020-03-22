@@ -12,7 +12,7 @@ For Turkey: [KANDİLLİ RASATHANESİ VE DEPREM ARAŞTIRMA ENSTİTÜSÜ (KRDAE)](
 
 ```bash  
   git clone https://github.com/mahsumurebe/zelzele.git
-  cd
+  cd zelzele
 ```
 2. Install node modules
 ```bash
