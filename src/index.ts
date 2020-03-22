@@ -1,7 +1,8 @@
+import 'config';
 import {fromEvent, merge, Observable} from 'rxjs';
 import {IProvider, IProviderResponse} from './Providers/types';
 import {Signale} from 'signale';
-import WS from './Servers/SocketIO';
+import WS from './Servers/WS';
 
 const logger = new Signale({
     scope: 'ZELZELE',
