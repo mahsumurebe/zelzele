@@ -1,4 +1,4 @@
-import 'config';
+import './config';
 import {fromEvent, merge, Observable} from 'rxjs';
 import {IProvider, IProviderResponse} from './Providers/types';
 import {Signale} from 'signale';
