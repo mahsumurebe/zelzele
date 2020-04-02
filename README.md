@@ -7,7 +7,6 @@
     
 ### Installation   
  1. Pull this repository and go to zelzele directory.  
-  
 ```bash    
  git clone https://github.com/mahsumurebe/zelzele.git  
  cd zelzele
@@ -16,11 +15,13 @@
 ```bash  
 npm install  
 ```  
-3. Create .env file in project root directory  
+
+ 3. Create .env file in project root directory  
 ```dotenv  
 WS_SERVER_HOSTNAME=127.0.0.1 WS_SERVER_PORT=3000 WS_SERVER_HTTPS_USE=false WS_SERVER_HTTPS_CERT_FILE= WS_SERVER_HTTPS_PRIVATE_KEY_FILE=  
 ```  
-5. Call start script  
+
+ 4. Call start script  
 ```bash  
 npm start  
 ```
