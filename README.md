@@ -1,4 +1,4 @@
-![Zelzele Logo](https://raw.githubusercontent.com/mahsumurebe/zelzele/master/logo.svg)
+![Zelzele Logo](logo.svg)
   
 ## DESCRIPTION    
  Zezele is a service that broadcasts earthquake information over the socket.    
