@@ -1,6 +1,4 @@
-<p align="center">
-  <a href="https://www.mahsumurebe.com/zelzele" target="blank"><img src="https://raw.githubusercontent.com/mahsumurebe/zelzele/469e985e1c1afae293e885b580fd7f4e752025b9/logo.svg" width="450" HEIGHT="70" alt="Zelzele Logo" /></a>
-</p>
+![Zelzele Logo](https://cdn.mahsumurebe.com/projects/zelzele/logo.svg)
   
 ## DESCRIPTION    
  Zezele is a service that broadcasts earthquake information over the socket.    
@@ -10,11 +8,10 @@
 ### Installation   
  1. Pull this repository and go to zelzele directory.  
 ```bash    
-  git clone https://github.com/mahsumurebe/zelzele.git  
+ git clone https://github.com/mahsumurebe/zelzele.git  
  cd zelzele
 ```  
-
- 2. Install node modules  
+2. Install node modules  
 ```bash  
 npm install  
 ```  
